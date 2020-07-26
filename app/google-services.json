@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "541773796400",
+    "firebase_url": "https://jira-s-task.firebaseio.com",
+    "project_id": "jira-s-task",
+    "storage_bucket": "jira-s-task.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:541773796400:android:4b6bdf9e066bd23b64c9f5",
+        "android_client_info": {
+          "package_name": "com.example.datascrapper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "541773796400-mld07hldtpoji3qegk85l2p44i1fpd2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1VZd0NXYnJ2jRXSgWwDQxXbWlwRBYtJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "541773796400-mld07hldtpoji3qegk85l2p44i1fpd2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

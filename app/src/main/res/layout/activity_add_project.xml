@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddProject">
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/project_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Project Name"
+        android:transitionName="email"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        app:boxStrokeColor="#9932CC"
+        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+        android:textColorHint="#000"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapWords"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/project_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Project Description"
+        android:layout_margin="10sp"
+        app:counterMaxLength="250"
+        app:counterEnabled="true"
+        app:boxStrokeColor="#9932CC"
+        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+        android:textColorHint="#000"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLength="250"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/go"
+        android:transitionName="go"
+        android:layout_margin="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Project"
+        android:textSize="18dp"
+        android:onClick="addProject"
+        android:textColor="#fff"
+        android:background="#9932CC"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        />
+
+
+
+</LinearLayout>

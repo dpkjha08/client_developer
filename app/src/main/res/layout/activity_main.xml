@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+<!--    <ImageView-->
+<!--        android:id="@+id/logo"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="418dp"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:layout_marginTop="-10dp"-->
+<!--        android:layout_marginEnd="10dp"-->
+<!--        android:layout_marginRight="10dp"-->
+<!--        android:src="@drawable/work_purple"-->
+<!--        android:transitionName="logo"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.406"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.032" />-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="0dp"
+            android:text="JIRA'S TASK"
+            android:textAlignment="center"
+            android:textColor="#9932CC"
+            android:textSize="50dp"
+            android:transitionName="name"
+            app:fontFamily="@font/amaranth"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/slogan"
+            android:layout_width="282dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:text="We manage everything for you"
+            android:textColor="#9932CC"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.511"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.579" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--    <TextView-->
+<!--        android:id="@+id/name"-->
+<!--        android:layout_width="280dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:paddingBottom="0dp"-->
+<!--        android:text="JIRA'S TASK"-->
+<!--        android:textColor="#9932CC"-->
+<!--        android:textSize="70sp"-->
+<!--        android:transitionName="name"-->
+<!--        app:fontFamily="@font/bangers" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/slogan"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:text="We manage everything for you"-->
+<!--        android:textColor="#9932CC"-->
+<!--        android:textSize="20sp" />-->
+
+
+</LinearLayout>
