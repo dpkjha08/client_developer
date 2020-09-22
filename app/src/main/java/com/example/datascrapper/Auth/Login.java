@@ -14,9 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.datascrapper.Dashboard;
+import com.example.datascrapper.Activities.Dashboard;
 import com.example.datascrapper.R;
-import com.example.datascrapper.SelectProject;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -70,7 +69,7 @@ public class Login extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         if(mAuth.getCurrentUser()!=null){
             finish();
-            startActivity(new Intent(this, SelectProject.class));
+            startActivity(new Intent(this, Dashboard.class));
         }
     }
 
@@ -141,7 +140,7 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Intent intent = new Intent(Login.this,SelectProject.class);
+                        Intent intent = new Intent(Login.this,Dashboard.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();

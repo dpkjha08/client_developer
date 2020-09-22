@@ -1,4 +1,4 @@
-package com.example.datascrapper;
+package com.example.datascrapper.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.datascrapper.Auth.SignUp;
+import com.example.datascrapper.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,7 +59,7 @@ public class AddProject extends AppCompatActivity {
         Log.e("Project Name","ID is : " + projectName);
 
         DocumentReference documentReference = fStore.collection("users").document(email)
-                                                    .collection("projects").document(projectName);
+                .collection("projects").document(projectName);
         Map<String,Object> project = new HashMap<>();
         project.put("project_name",projectName);
         project.put("project_desc",projectDesc);
@@ -70,7 +71,7 @@ public class AddProject extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Intent intent = new Intent(AddProject.this, SelectProject.class);
+                        Intent intent = new Intent(AddProject.this, Dashboard.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();

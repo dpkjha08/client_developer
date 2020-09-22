@@ -1,4 +1,4 @@
-package com.example.datascrapper;
+package com.example.datascrapper.Activities;
 //package com.example.datascrapper.Auth;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.datascrapper.Auth.Login;
+import com.example.datascrapper.R;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
+public class  MainActivity extends AppCompatActivity {
 
     //set splash screen time
     private static int SPLASH_SCREEN = 4000;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 mAuth = FirebaseAuth.getInstance();
 //                FirebaseAuth.getInstance().signOut();
                 if(mAuth.getCurrentUser()!=null){
-                    Intent intent = new Intent(MainActivity.this,SelectProject.class);
+                    Intent intent = new Intent(MainActivity.this, Dashboard.class);
                     startActivity(intent);
                     finish();
                 }else {
@@ -61,4 +62,13 @@ public class MainActivity extends AppCompatActivity {
         },SPLASH_SCREEN);
 
     }
+
+//    public static class View extends AppCompatActivity {
+//
+//        @Override
+//        protected void onCreate(Bundle savedInstanceState) {
+//            super.onCreate(savedInstanceState);
+//            setContentView(R.layout.activity_view);
+//        }
+//    }
 }

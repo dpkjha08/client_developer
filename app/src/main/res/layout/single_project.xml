@@ -1,75 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5sp">
-
+    app:cardElevation="10sp"
+    android:padding="16dp"
+    android:layout_margin="10sp"
+    >
     <LinearLayout
+        android:id="@+id/project"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.cardview.widget.CardView
+        android:minHeight="100sp"
+        android:padding="10sp"
+        android:orientation="vertical"
+        >
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:cardBackgroundColor="#000a12"
-            app:cardCornerRadius="10sp"
-            app:cardElevation="@dimen/cardview_default_radius"
-            android:background="@layout/layout_bg">
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="Project 1"
+            android:id="@+id/project_name"
+            android:textColor="#9932CC"
+            android:fontFamily="sans-serif-condensed"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10sp"
-                android:onClick="projectDetails"
-                >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Project ka description idar aayega thoda font change karna padega na idar"
+            android:id="@+id/project_desc"
+            android:textColor="#000"
+            android:fontFamily="sans-serif-condensed"/>
 
-                <TextView
-                    android:id="@+id/project_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/amaranth"
-                    android:tag="Something"
-                    android:padding="10sp"
-                    android:text="Project name"
-                    android:textAlignment="center"
-                    android:textAllCaps="true"
-                    android:textColor="#448aff"
-                    android:textSize="30sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#448aff"
-                    app:layout_constraintBottom_toBottomOf="@+id/project_name"
-                    app:layout_constraintTop_toTopOf="@+id/project_desc"
-                    tools:layout_editor_absoluteX="0dp" />
-
-                <TextView
-                    android:id="@+id/project_desc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10sp"
-                    android:text="Project Description is a forma wefw iueewfuw qiuu3r iuief iuef wfi iuuwiuq4 auiewfu iufi iui34 iwu4 iuuo4u iutui4 i4uu4 lly sfbaew eifuw iufup3i wuuru43 efeqwf uuuq ugo3ruygoyq4 ugu4 uiru34 ir3ug uwur832rg7 r8347 written declaration of the project and its idea and context to e"
-                    android:textAlignment="center"
-                    android:textColor="#448aff"
-                    android:textSize="15sp"
-                    android:fontFamily="@font/amaranth"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/project_name"
-                    app:layout_constraintVertical_bias="0.36" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
+
+</com.google.android.material.card.MaterialCardView>

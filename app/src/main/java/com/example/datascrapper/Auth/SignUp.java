@@ -11,9 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.datascrapper.Dashboard;
 import com.example.datascrapper.R;
-import com.example.datascrapper.SelectProject;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -44,7 +42,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
-        getWindow().setStatusBarColor(0xfff);
+
         setContentView(R.layout.activity_sign_up);
 
         callLogin = findViewById(R.id.login_here);
@@ -182,10 +180,10 @@ public class SignUp extends AppCompatActivity {
                                 Log.d("TAG","USER REGISTERED SUCCESSFULLY");
                             }
                         });
-                        Intent intent = new Intent(SignUp.this, SelectProject.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
+//                        Intent intent = new Intent(SignUp.this, SelectProject.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        startActivity(intent);
+//                        finish();
                     }
                     else{
                         if(task.getException() instanceof FirebaseAuthUserCollisionException){

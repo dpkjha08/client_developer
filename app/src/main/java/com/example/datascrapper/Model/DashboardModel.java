@@ -1,15 +1,15 @@
 package com.example.datascrapper.Model;
 
-public class ProjectsModel {
+public class DashboardModel {
+
     String project_name;
     String project_desc;
 
-    private ProjectsModel(){}
+    private DashboardModel(){}
 
-    private ProjectsModel(String project_name,String project_desc){
+    private DashboardModel(String project_name,String project_desc){
         this.project_name = project_name;
         this.project_desc = project_desc;
-
     }
 
     public String getProject_name() {
