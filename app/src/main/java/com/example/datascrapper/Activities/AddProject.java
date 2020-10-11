@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -35,6 +36,8 @@ public class AddProject extends AppCompatActivity {
     FirebaseFirestore fStore;
     FirebaseAuth mAuth;
     String userID,email,projectName,projectDesc;
+    private boolean doubleBackToExitPressedOnce = false;
+
     List<String> members = new ArrayList<String>();
     @ServerTimestamp Date time;
     @Override
@@ -72,7 +75,7 @@ public class AddProject extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Intent intent = new Intent(AddProject.this, Dashboard.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
                         Log.e("Project", "Added Successful");
@@ -89,4 +92,17 @@ public class AddProject extends AppCompatActivity {
         Log.e("Document","id is "+documentReference);
 
     }
+
+    // Toast -> press back button again to exit
+    @Override
+    public void onBackPressed() {
+
+        super.onBackPressed();
+        Intent intent = new Intent(this, Dashboard.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+
+    }
+
 }

@@ -9,13 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Activities.ProjectDetails"></activity>
+        <activity android:name=".Activities.MainActivity2"></activity>
+        <activity android:name=".Activities.ProjectDetails" />
         <activity android:name=".Activities.AddProject" />
         <activity android:name=".Activities.CardView" />
         <activity android:name=".Auth.SignUp" />
+        <activity android:name=".Activities.Dashboard" />
         <activity android:name=".Auth.Login" />
-        <activity android:name=".Activities.MainActivity" />
-        <activity android:name=".Activities.Dashboard">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

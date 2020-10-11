@@ -5,30 +5,50 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout"
     android:layout_height="match_parent"
-    android:padding="5dp"
+    android:padding="1dp"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        >
 
         <TextView
             android:id="@+id/login_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/amaranth"
+            android:fontFamily="sans-serif-condensed"
             android:paddingLeft="0dp"
             android:paddingTop="0dp"
-            android:text="JIRA'S TASK"
+            android:text="Client Developer Task Manager"
             android:textAlignment="center"
-            android:textColor="#9932CC"
-            android:textSize="40dp"
-            android:transitionName="name" />
+            android:textColor="@color/purple"
+            android:textSize="20dp"
+            android:transitionName="name"
+            tools:layout_editor_absoluteX="-31dp"
+            tools:layout_editor_absoluteY="2dp" />
 
-    </LinearLayout>
+        <ImageButton
+            android:layout_width="25sp"
+            android:layout_height="25dp"
+            android:background="@drawable/profile_purple"
+            android:onClick="logoutNow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.958"
+            app:layout_constraintStart_toStartOf="@+id/login_name"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="4dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <View android:background="#000"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -43,22 +63,23 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.082"
+            android:backgroundTint="@color/purple"
             tools:layout_editor_absoluteX="0dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="logoutNow"
-            android:text="LOGOUT"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.869"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.896" />
+<!--        <Button-->
+<!--            android:id="@+id/logout"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:onClick="logoutNow"-->
+<!--            android:text="LOGOUT"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.869"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.896" />-->
 
 <!--        <Button-->
 <!--            android:id="@+id/addProject"-->
@@ -72,6 +93,22 @@
 <!--            app:layout_constraintStart_toStartOf="parent"-->
 <!--            app:layout_constraintTop_toTopOf="parent"-->
 <!--            app:layout_constraintVertical_bias="0.894" />-->
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:onClick="addProject"
+            android:src="@drawable/main_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.954"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.971"
+            app:backgroundTint="@color/purple"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

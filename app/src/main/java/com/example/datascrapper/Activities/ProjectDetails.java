@@ -3,7 +3,9 @@ package com.example.datascrapper.Activities;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ public class ProjectDetails extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     FirebaseAuth mAuth;
     TextView project_Name,project_Description;
+    private boolean doubleBackToExitPressedOnce = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +34,13 @@ public class ProjectDetails extends AppCompatActivity {
             String projectName = extras.getString("projectName");
             mAuth = FirebaseAuth.getInstance();
             firebaseFirestore = FirebaseFirestore.getInstance();
-            DocumentReference docRef  = firebaseFirestore.collection("users").document(String.valueOf(mAuth.getCurrentUser().getEmail())).collection("projects").document("projectName");
+            DocumentReference docRef  = firebaseFirestore.collection("users").document(String.valueOf(mAuth.getCurrentUser().getEmail())).collection("projects").document(projectName);
 
             project_Name  = findViewById(R.id.projectName);
             project_Description  =  findViewById(R.id.projectDescription);
-            project_Name.setText("PROJECT NAME");
-            project_Description.setText("Project Description");
+
+            project_Name.setText(projectName);
+            project_Description.setText("Description");
 
             docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
@@ -49,6 +53,9 @@ public class ProjectDetails extends AppCompatActivity {
 
                     if (snapshot != null && snapshot.exists()) {
                         Log.d("Bas u hi", "Current data: " + snapshot.getData());
+                        Log.d("Bas u hi", "Current data: " + snapshot.getData().get("project_desc"));
+                        Log.d("Bas u hi", "Current data: " + snapshot.getData().get("members"));
+
                     } else {
                         Log.d("Bas u hi", "Current data: null");
                     }
@@ -61,7 +68,17 @@ public class ProjectDetails extends AppCompatActivity {
         else{
             Toast.makeText(ProjectDetails.this,"Something went wrong",Toast.LENGTH_SHORT).show();
         }
-
-
     }
+
+    // Toast -> press back button again to exit
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        Intent intent = new Intent(this, Dashboard.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        startActivity(intent);
+//        finish();
+//    }
+
+
 }

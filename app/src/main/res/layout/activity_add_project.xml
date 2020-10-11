@@ -6,7 +6,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        >
 
+        <TextView
+            android:id="@+id/login_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="sans-serif-condensed"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:text="Add Project"
+            android:textAlignment="center"
+            android:textColor="@color/purple"
+            android:textSize="20dp"
+            android:transitionName="name"
+            tools:layout_editor_absoluteX="-31dp"
+            tools:layout_editor_absoluteY="2dp" />
+
+        <ImageButton
+            android:layout_width="25sp"
+            android:layout_height="25dp"
+            android:background="@drawable/profile_purple"
+            android:onClick="logoutNow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.958"
+            app:layout_constraintStart_toStartOf="@+id/login_name"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="4dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View android:background="#000"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/project_name"

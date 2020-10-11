@@ -2,15 +2,18 @@ package com.example.datascrapper.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +30,7 @@ import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import android.view.Window;
 
 public class Dashboard extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
@@ -34,16 +38,16 @@ public class Dashboard extends AppCompatActivity {
     private FirestoreRecyclerOptions<DashboardModel>options;
     private FirestoreRecyclerAdapter<DashboardModel, DashboardHolder>adapter;
     private RecyclerView dashboard;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
         mAuth = FirebaseAuth.getInstance();
-//        Log.d("Name",String.valueOf(mAuth.getCurrentUser().getEmail()));
         firebaseFirestore = FirebaseFirestore.getInstance();
         Query query  = firebaseFirestore.collection("users").document(String.valueOf(mAuth.getCurrentUser().getEmail())).collection("projects");
-//        Query query  = firebaseFirestore.collection("users").document("dpk@gmail.com").collection("projects");
         dashboard = findViewById(R.id.dashboard);
         dashboard.setHasFixedSize(true);
         dashboard.setLayoutManager(new LinearLayoutManager(Dashboard.this));
@@ -66,10 +70,12 @@ public class Dashboard extends AppCompatActivity {
                         int pro = holder.getAdapterPosition();
 //                      Log.d("Position", String.valueOf(pro));
 //                      Toast.makeText(Dashboard.this, projectName.get(pro),Toast.LENGTH_SHORT).show();
-                        Intent toProject = new Intent(Dashboard.this, ProjectDetails.class);
+//                        Intent toProject = new Intent(Dashboard.this, ProjectDetails.class);
+                        Intent toProject = new Intent(Dashboard.this, MainActivity2.class);
+
                         toProject.putExtra("projectName",projectName.get(pro));
                         startActivity(toProject);
-                        finish();
+//                        finish();
                     }
                 });
 ////                int pr = holder.getAdapterPosition();
@@ -92,13 +98,13 @@ public class Dashboard extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        adapter.stopListening();
+//        adapter.stopListening();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        adapter.startListening();
+//        adapter.startListening();
     }
 
     public void logoutNow(View view){

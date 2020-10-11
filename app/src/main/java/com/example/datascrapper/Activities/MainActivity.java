@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -51,6 +52,7 @@ public class  MainActivity extends AppCompatActivity {
 //                FirebaseAuth.getInstance().signOut();
                 if(mAuth.getCurrentUser()!=null){
                     Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                     finish();
                 }else {
