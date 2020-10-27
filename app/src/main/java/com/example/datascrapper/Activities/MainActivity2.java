@@ -1,16 +1,29 @@
 package com.example.datascrapper.Activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.ArrayMap;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.datascrapper.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity {
     private BottomNavigationView mMainNav;
@@ -18,6 +31,8 @@ public class MainActivity2 extends AppCompatActivity {
     private HomeFragment homeFragment;
     private TaskFragment taskFragment;
     private  SettingsFragment settingsFragment;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +45,17 @@ public class MainActivity2 extends AppCompatActivity {
         homeFragment = new HomeFragment();
         taskFragment = new TaskFragment();
         settingsFragment = new SettingsFragment();
+        ////////////////////////////////////////////////////////////////////////////////////////////
+//        Bundle extras = getIntent().getExtras();
+//        String projectName = extras.getString("projectName");
+//          Log.e("Name",projectName);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("projectName",projectName);
+//        homeFragment.setArguments(bundle);
+//        setFragment(homeFragment);
 
-        setFragment(homeFragment);
+//        Log.e("Inside saved Instance","Welcome brodas----1");
+        ////////////////////////////////////////////////////////////////////////////////////////////
 
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -39,17 +63,28 @@ public class MainActivity2 extends AppCompatActivity {
 
                 switch(menuItem.getItemId()){
                     case R.id.nav_home:
-                        mMainNav.setItemBackgroundResource(R.color.colorAccent);
+//                        mMainNav.setItemBackgroundResource(R.color.colorAccent);
+                        Log.e("Inside saved Home","Welcome brodas");
+
+                        Bundle extras = getIntent().getExtras();
+                        String projectName = extras.getString("projectName");
+
+                        Bundle bundle = new Bundle();
+                        bundle.putString("projectName",projectName);
+                        homeFragment.setArguments(bundle);
                         setFragment(homeFragment);
                         return true;
 
                     case R.id.nav_task:
-                        mMainNav.setItemBackgroundResource(R.color.colorPrimaryDark);
+                        Log.e("Inside saved Task","Welcome brodas");
+
+//                        mMainNav.setItemBackgroundResource(R.color.colorPrimaryDark);
                         setFragment(taskFragment);
                         return true;
 
                     case R.id.nav_settings:
-                        mMainNav.setItemBackgroundResource(R.color.colorPrimary);
+                        Log.e("Inside saved Settings","Welcome brodas");
+//                        mMainNav.setItemBackgroundResource(R.color.colorPrimary);
                         setFragment(settingsFragment);
                         return true;
                     default:
@@ -62,10 +97,18 @@ public class MainActivity2 extends AppCompatActivity {
 
         });
 
+        if (savedInstanceState == null) {
+            Log.e("Inside saved Instance","Welcome brodas");
+            mMainNav.setSelectedItemId(R.id.nav_home); // change to whichever id should be default
+        }
+
     }
+
     private void setFragment(Fragment fragment) {
+        Log.w("Set Fragment","Something");
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame,fragment);
         fragmentTransaction.commit();
     }
+
 }

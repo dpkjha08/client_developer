@@ -1,14 +1,29 @@
 package com.example.datascrapper.Activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.datascrapper.Auth.Login;
 import com.example.datascrapper.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +32,13 @@ import com.example.datascrapper.R;
  */
 public class HomeFragment extends Fragment {
 
+    private TextView name;
+    private FirebaseFirestore firebaseFirestore;
+    FirebaseAuth mAuth;
+    TextView project_Name,project_Description;
+    private boolean doubleBackToExitPressedOnce = false;
+    public String description = null;
+    public String pn;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -56,12 +78,63 @@ public class HomeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
 
         }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        mAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
+        View view =  inflater.inflate(R.layout.fragment_home, container, false);
+        String projectName = getArguments().getString("projectName");
+        project_Name  =  (TextView)view.findViewById(R.id.projectName);
+        project_Description  =   (TextView)view.findViewById(R.id.projectDescription);
+
+        DocumentReference docRef  = firebaseFirestore.collection("users").document(String.valueOf(mAuth.getCurrentUser().getEmail())).
+                                    collection("projects").document(projectName);
+
+        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot snapshot,
+                                @Nullable FirebaseFirestoreException e) {
+                if (e != null) {
+                    Log.w("Bas u hi", "Listen failed.", e);
+                    return;
+                }
+
+                if (snapshot != null && snapshot.exists()) {
+                    Log.e("Bas u hi", "Current data: " + snapshot.getData());
+                    pn = (String) snapshot.getData().get("project_name");
+                    Log.e("Bas u hi", "Project Name: " + snapshot.getData().get("project_desc"));
+                    description = (String) snapshot.getData().get("project_desc");
+                    Log.e("Bas u hi", "Project Desciption: " + snapshot.getData().get("members"));
+                    ArrayList<String> members = (ArrayList<String>) snapshot.getData().get("members");
+//                    System.out.println(members);
+
+                    project_Name.setText(pn);
+                    project_Description.setText(description);
+                } else {
+                    Log.d("Bas u hi", "Current data: null");
+                }
+            }
+        });
+
+        ImageView img = (ImageView) view.findViewById(R.id.logoutImage);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getActivity(),Login.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                getActivity().finish();
+            }
+        });
+
+        return view;
     }
+
+
 }

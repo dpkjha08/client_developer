@@ -68,7 +68,7 @@ public class Dashboard extends AppCompatActivity {
                     public void onClick(View v) {
 //                        String project = v.getTag().toString();
                         int pro = holder.getAdapterPosition();
-//                      Log.d("Position", String.valueOf(pro));
+                      Log.e("Position", String.valueOf(pro));
 //                      Toast.makeText(Dashboard.this, projectName.get(pro),Toast.LENGTH_SHORT).show();
 //                        Intent toProject = new Intent(Dashboard.this, ProjectDetails.class);
                         Intent toProject = new Intent(Dashboard.this, MainActivity2.class);
@@ -92,6 +92,9 @@ public class Dashboard extends AppCompatActivity {
 
         adapter.startListening();
         dashboard.setAdapter(adapter);
+        if(savedInstanceState==null){
+            onStart();
+        }
 
     }
 
@@ -113,7 +116,6 @@ public class Dashboard extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finish();
-
     }
 
     public void addProject(View view){

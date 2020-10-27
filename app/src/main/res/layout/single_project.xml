@@ -2,41 +2,44 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="340dp"
     android:layout_height="wrap_content"
+    android:layout_marginVertical="5sp"
+    android:layout_marginHorizontal="10sp"
+    android:minHeight="100sp"
+    app:cardCornerRadius="5sp"
     app:cardElevation="10sp"
-    android:padding="16dp"
-    android:layout_margin="10sp"
     >
+
     <LinearLayout
         android:id="@+id/project"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="100sp"
-        android:padding="10sp"
         android:orientation="vertical"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="Project 1"
-            android:id="@+id/project_name"
-            android:textColor="#9932CC"
-            android:fontFamily="sans-serif-condensed"/>
+        android:padding="10sp">
 
         <TextView
+            android:id="@+id/project_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:text="Project ka description idar aayega thoda font change karna padega na idar"
-            android:id="@+id/project_desc"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Project 1"
             android:textColor="#000"
-            android:fontFamily="sans-serif-condensed"/>
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/project_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Project ka description idar aayega thoda font change karna padega na idar"
+            android:textColor="#000"
+            android:textSize="15sp" />
 
     </LinearLayout>
-
-
 
 
 </com.google.android.material.card.MaterialCardView>
