@@ -31,7 +31,9 @@ public class MainActivity2 extends AppCompatActivity {
     private HomeFragment homeFragment;
     private TaskFragment taskFragment;
     private  SettingsFragment settingsFragment;
-
+    public Bundle extras;
+    public Bundle bundle;
+    public String projectName;
 
 
     @Override
@@ -45,17 +47,6 @@ public class MainActivity2 extends AppCompatActivity {
         homeFragment = new HomeFragment();
         taskFragment = new TaskFragment();
         settingsFragment = new SettingsFragment();
-        ////////////////////////////////////////////////////////////////////////////////////////////
-//        Bundle extras = getIntent().getExtras();
-//        String projectName = extras.getString("projectName");
-//          Log.e("Name",projectName);
-//        Bundle bundle = new Bundle();
-//        bundle.putString("projectName",projectName);
-//        homeFragment.setArguments(bundle);
-//        setFragment(homeFragment);
-
-//        Log.e("Inside saved Instance","Welcome brodas----1");
-        ////////////////////////////////////////////////////////////////////////////////////////////
 
         mMainNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -63,13 +54,10 @@ public class MainActivity2 extends AppCompatActivity {
 
                 switch(menuItem.getItemId()){
                     case R.id.nav_home:
-//                        mMainNav.setItemBackgroundResource(R.color.colorAccent);
                         Log.e("Inside saved Home","Welcome brodas");
-
-                        Bundle extras = getIntent().getExtras();
-                        String projectName = extras.getString("projectName");
-
-                        Bundle bundle = new Bundle();
+                        extras = getIntent().getExtras();
+                        projectName = extras.getString("projectName");
+                        bundle = new Bundle();
                         bundle.putString("projectName",projectName);
                         homeFragment.setArguments(bundle);
                         setFragment(homeFragment);
@@ -77,19 +65,21 @@ public class MainActivity2 extends AppCompatActivity {
 
                     case R.id.nav_task:
                         Log.e("Inside saved Task","Welcome brodas");
-
-//                        mMainNav.setItemBackgroundResource(R.color.colorPrimaryDark);
                         setFragment(taskFragment);
                         return true;
 
                     case R.id.nav_settings:
                         Log.e("Inside saved Settings","Welcome brodas");
 //                        mMainNav.setItemBackgroundResource(R.color.colorPrimary);
+                        extras = getIntent().getExtras();
+                        projectName = extras.getString("projectName");
+                        bundle = new Bundle();
+                        bundle.putString("projectName",projectName);
+                        settingsFragment.setArguments(bundle);
                         setFragment(settingsFragment);
                         return true;
                     default:
                         return false;
-
 
                 }
 

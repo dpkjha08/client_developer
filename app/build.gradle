@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.datascrapper"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -22,7 +22,9 @@ android {
         }
     }
 }
-
+repositories {
+    maven {url 'https://jitpack.io'}
+}
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -46,6 +48,10 @@ dependencies {
     // FirebaseUI for Cloud Firestore
     implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
     implementation 'com.firebaseui:firebase-ui-database:3.2.1'
+    //SlideUp Window
+    implementation 'com.github.mancj:SlideUp-Android:1.0-beta'
+    //Gif
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
 
 
 }
