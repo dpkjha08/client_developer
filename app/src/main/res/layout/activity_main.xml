@@ -36,12 +36,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingBottom="0dp"
-            android:text="JIRA'S TASK"
+            android:text="CLIENT DEVELOPER"
             android:textAlignment="center"
             android:textColor="#9932CC"
             android:textSize="50dp"
             android:transitionName="name"
-            app:fontFamily="@font/amaranth"
+            app:fontFamily="sans-serif-black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,18 +49,17 @@
 
         <TextView
             android:id="@+id/slogan"
-            android:layout_width="282dp"
-            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="24dp"
             android:text="We manage everything for you"
             android:textColor="#9932CC"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.511"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.579" />
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <!--    <TextView-->
