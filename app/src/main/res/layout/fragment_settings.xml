@@ -54,28 +54,25 @@
         android:layout_height="match_parent"
         >
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Deepak Bhai kya kar rahe ho tum batao"
-            android:textSize="50sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/dim">
-
-        </TextView>
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/dashboard"-->
-<!--            android:layout_width="match_parent"-->
+<!--        <TextView-->
+<!--            android:layout_width="0dp"-->
 <!--            android:layout_height="wrap_content"-->
-<!--            android:backgroundTint="@color/purple"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            android:text="Deepak Bhai kya kar rahe ho tum batao"-->
+<!--            android:textSize="50sp"-->
 <!--            app:layout_constraintEnd_toEndOf="parent"-->
 <!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            app:layout_constraintVertical_bias="0.104">-->
+<!--            app:layout_constraintTop_toTopOf="@+id/dim">-->
 
-<!--        </androidx.recyclerview.widget.RecyclerView>-->
+<!--    </TextView>-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/showUsers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:backgroundTint="@color/purple"
+            tools:ignore="MissingConstraints">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
         <FrameLayout
             android:id="@+id/dim"
@@ -87,9 +84,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints" >
 
+
+        </FrameLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
         <include layout="@layout/add_user_in_settings" />
+        </ScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

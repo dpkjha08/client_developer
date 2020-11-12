@@ -47,7 +47,10 @@ public class Dashboard extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
-        Query query  = firebaseFirestore.collection("users").document(String.valueOf(mAuth.getCurrentUser().getEmail())).collection("projects");
+        Query query  = firebaseFirestore.collection("users")
+                        .document(String.valueOf(mAuth.getCurrentUser().getEmail()))
+                        .collection("projects");
+
         dashboard = findViewById(R.id.dashboard);
         dashboard.setHasFixedSize(true);
         dashboard.setLayoutManager(new LinearLayoutManager(Dashboard.this));

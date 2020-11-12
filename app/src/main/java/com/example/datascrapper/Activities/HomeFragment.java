@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.datascrapper.Auth.Login;
 import com.example.datascrapper.R;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,8 +39,9 @@ public class HomeFragment extends Fragment {
     FirebaseAuth mAuth;
     TextView project_Name,project_Description;
     private boolean doubleBackToExitPressedOnce = false;
-    public String description = null;
-    public String pn;
+    private String description = null;
+    private String pn;
+    MaterialCardView teamStrength,taskCompleted;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -85,12 +88,26 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) getContext()).getWindowManager()
+                .getDefaultDisplay()
+                .getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        final int width = displayMetrics.widthPixels;
+
+
+
         mAuth = FirebaseAuth.getInstance();
         firebaseFirestore = FirebaseFirestore.getInstance();
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         String projectName = getArguments().getString("projectName");
         project_Name  =  (TextView)view.findViewById(R.id.projectName);
         project_Description  =   (TextView)view.findViewById(R.id.projectDescription);
+//        teamStrength = (MaterialCardView)view.findViewById(R.id.teamStrength);
+//        teamStrength.set
+//        teamStrength.setWidth((width*30)/100);
+//        taskCompleted = (MaterialCardView)view.findViewById(R.id.taskCompleted);
+//        teamStrength.setWidth((width*60)/100);
 
         DocumentReference docRef  = firebaseFirestore.collection("users").document(String.valueOf(mAuth.getCurrentUser().getEmail())).
                                     collection("projects").document(projectName);

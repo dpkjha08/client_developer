@@ -1,6 +1,7 @@
 package com.example.datascrapper.Activities;
 //package com.example.datascrapper.Auth;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,10 +12,18 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.datascrapper.Auth.Login;
 import com.example.datascrapper.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class  MainActivity extends AppCompatActivity {
 
@@ -27,6 +36,7 @@ public class  MainActivity extends AppCompatActivity {
     ImageView logo;
     TextView name,slogan;
     FirebaseAuth mAuth;
+    FirebaseFirestore fStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +44,7 @@ public class  MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); // To remove Status Bar
         setContentView(R.layout.activity_main);
 
+        
             //Adding Splash Animation or Get animation from the xml files
 //        topAnimation = AnimationUtils.loadAnimation(this,R.anim.top_animation);
 //        bottomAnimation = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);

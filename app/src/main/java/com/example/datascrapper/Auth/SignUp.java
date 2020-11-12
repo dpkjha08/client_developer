@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.datascrapper.Activities.Dashboard;
 import com.example.datascrapper.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -180,10 +181,10 @@ public class SignUp extends AppCompatActivity {
                                 Log.d("TAG","USER REGISTERED SUCCESSFULLY");
                             }
                         });
-//                        Intent intent = new Intent(SignUp.this, SelectProject.class);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                        startActivity(intent);
-//                        finish();
+                        Intent intent = new Intent(SignUp.this, Dashboard.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finish();
                     }
                     else{
                         if(task.getException() instanceof FirebaseAuthUserCollisionException){

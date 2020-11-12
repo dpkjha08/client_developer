@@ -12,7 +12,7 @@
     >
 
     <LinearLayout
-        android:id="@+id/project"
+        android:id="@+id/usersCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="100sp"
@@ -20,22 +20,22 @@
         android:padding="10sp">
 
         <TextView
-            android:id="@+id/project_name"
+            android:id="@+id/full_name_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed-medium"
-            android:text="Project 1"
+            android:text="Name"
             android:textColor="#000"
             android:textSize="20sp" />
 
 
         <TextView
-            android:id="@+id/project_desc"
+            android:id="@+id/email_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="sans-serif-condensed"
-            android:text="Project ka description idar aayega thoda font change karna padega na idar"
+            android:text="email@gmail.com"
             android:textColor="#000"
             android:textSize="15sp" />
 

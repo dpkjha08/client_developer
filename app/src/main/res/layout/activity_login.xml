@@ -22,7 +22,7 @@
             android:fontFamily="@font/amaranth"
             android:paddingLeft="0dp"
             android:paddingTop="0dp"
-            android:text="JIRA'S TASK"
+            android:text="CDTM"
             android:textAlignment="center"
             android:textColor="#9932CC"
             android:textSize="40dp"

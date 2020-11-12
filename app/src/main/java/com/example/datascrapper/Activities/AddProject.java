@@ -69,22 +69,48 @@ public class AddProject extends AppCompatActivity {
         project.put("created_at", FieldValue.serverTimestamp());
         members.add(email);
         project.put("members",members);
-
         documentReference.set(project)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Intent intent = new Intent(AddProject.this, Dashboard.class);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                        finish();
-                        Log.e("Project", "Added Successful");
+                        ////////////////////////////////////////////
+                        DocumentReference doc = fStore.collection("users").document(email)
+                                .collection("projects").document(projectName).collection("project_user").document(email);
+                        Map<String,Object> project_user = new HashMap<>();
+                        project_user.put("full name","Deepak Jha");
+                        project_user.put("email",email);
+                        project_user.put("tasks completed",0);
+                        project_user.put("tasks pending",0);
+                        project_user.put("total tasks",0);
+                        doc.set(project_user)
+                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+                                        Intent intent = new Intent(AddProject.this, Dashboard.class);
+                                        startActivity(intent);
+                                        finish();
+                                        Log.e("Project", "Added Successful");
+                                    }
+
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddProject.this,"Something went wrong while adding user",Toast.LENGTH_SHORT).show();
+                                    Log.e("Project", "Adding Failed");
+                                }
+                            });
+
+
+                        ////////////////////////////////////////////
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(AddProject.this,"Something went wrong",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddProject.this,"Something went wrong outside.",Toast.LENGTH_SHORT).show();
                         Log.e("Project", "Adding Failed");
                     }
                 });

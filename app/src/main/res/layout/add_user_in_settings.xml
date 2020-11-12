@@ -12,12 +12,14 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/fragment_settings">
 
+
     <LinearLayout
         android:layout_width="350dp"
-        android:layout_height="350dp"
+        android:layout_height="wrap_content"
         android:id="@+id/slideView"
         android:orientation="vertical"
         android:layout_marginTop="26dp"
+        android:padding="15dp"
         android:background="@android:color/white">
 
         <TextView
@@ -38,10 +40,37 @@
         <pl.droidsonroids.gif.GifImageView
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:src="@drawable/add_user">
+            android:src="@drawable/add_user"
+            />
 
-        </pl.droidsonroids.gif.GifImageView>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:transitionName="email"
+            app:boxStrokeColor="#9932CC"
+            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+            android:textColorHint="#000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/add_user_go"
+            android:transitionName="add_user_go"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add User"
+            android:textSize="18dp"
+            android:textColor="#fff"
+            android:background="#9932CC"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            />
 
     </LinearLayout>
-
 </RelativeLayout>
