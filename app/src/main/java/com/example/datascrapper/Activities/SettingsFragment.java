@@ -65,6 +65,8 @@ public class SettingsFragment extends Fragment {
     private String projectName;
     public String projectDesc;
     public String projectX;
+    public String taskId;
+    long incomleteTask,completedTask,totalTask;
     public String tempx,tempy;
     List<String> members = new ArrayList<String>();
     List<String> oldMembers = new ArrayList<String>();
@@ -249,7 +251,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), Login.class);
+                Intent intent = new Intent(getContext(), Login.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 getActivity().finish();
@@ -341,6 +343,10 @@ public class SettingsFragment extends Fragment {
                     projectX =  snapshot.getData().get("project_name").toString().trim();
                     projectDesc = snapshot.getData().get("project_desc").toString().trim();
                     oldMembers = (ArrayList<String>)  snapshot.getData().get("members");
+                    taskId = snapshot.getData().get("task_id").toString();
+                    incomleteTask = (long)snapshot.getData().get("task_incomplete");
+                    completedTask = (long)snapshot.getData().get("task_completed");
+                    totalTask = (long)snapshot.getData().get("total_task");
 
                 } else {
                     Log.d("Bas u hi", "Current data: null");
@@ -356,6 +362,9 @@ public class SettingsFragment extends Fragment {
         project.put("project_desc",null);
         project.put("created_at", FieldValue.serverTimestamp());
         project.put("members",members);
+        project.put("task_incomplete",null);
+        project.put("task_completed",null);
+        project.put("total_task",null);
 
 
         documentReference.set(project)
@@ -367,14 +376,20 @@ public class SettingsFragment extends Fragment {
                                 collection("projects").document(projectName).update("project_name", projectX);
                         fStore.collection("users").document(String.valueOf(emailAddress)).
                                 collection("projects").document(projectName).update("project_desc", projectDesc);
-
+                        fStore.collection("users").document(String.valueOf(emailAddress)).
+                                collection("projects").document(projectName).update("task_id", taskId);
+                        fStore.collection("users").document(String.valueOf(emailAddress)).
+                                collection("projects").document(projectName).update("task_completed", completedTask);
+                        fStore.collection("users").document(String.valueOf(emailAddress)).
+                                collection("projects").document(projectName).update("task_incomplete",incomleteTask );
+                        fStore.collection("users").document(String.valueOf(emailAddress)).
+                                collection("projects").document(projectName).update("total_task",totalTask );
                         for (String temp : oldMembers) {
                             for(String temp2 : oldMembers){
                                 fStore.collection("users").document(temp).
                                         collection("projects").document(projectName).update("members", FieldValue.arrayUnion(temp2));
 
                             }
-
                         }
                         putUserData(currentUser);
 //                        email.getEditText().clearFocus();
@@ -426,6 +441,8 @@ public class SettingsFragment extends Fragment {
 
                                     if (snapshot != null && snapshot.exists()) {
 
+
+
                                         fullName =  snapshot.getData().get("full_name").toString().trim();
                                         emailAd  = snapshot.getData().get("email").toString().trim();
                                         DocumentReference doc = fStore.collection("users").document(tempx)
@@ -433,6 +450,7 @@ public class SettingsFragment extends Fragment {
                                                         collection("project_user").document(tempy);
 
                                         Map<String,Object> project_user = new HashMap<>();
+
                                         project_user.put("full_name",null);
                                         project_user.put("email",null);
                                         project_user.put("tasks_completed",0);

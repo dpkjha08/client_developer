@@ -2,20 +2,44 @@ package com.example.datascrapper.Auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.CursorJoiner;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.ResultReceiver;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.datascrapper.Activities.Constants;
 import com.example.datascrapper.Activities.Dashboard;
+import com.example.datascrapper.Activities.FetchAddressIntentService;
+import com.example.datascrapper.Activities.MainActivity;
 import com.example.datascrapper.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,22 +47,31 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
 
     Button callLogin;
-    TextInputLayout full_name,email,password,confirm_password;
-    String fullName,emailAddress,finalPassword,confrimPassword;
+    ImageButton gpsbutton;
+    TextInputLayout full_name, email, password, confirm_password, get_location;
+    TextInputEditText inner_gps;
+    String fullName, emailAddress, finalPassword, confrimPassword;
+    TextView login_to_continue;
     private boolean doubleBackToExitPressedOnce = false;
     private FirebaseAuth mAuth;
     FirebaseFirestore fStore;
     String userID;
     List<String> projects = new ArrayList<>();
+    private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
+    private ResultReceiver resultReceiver;
+    FusedLocationProviderClient fusedLocationProviderClient;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +79,13 @@ public class SignUp extends AppCompatActivity {
 
         setContentView(R.layout.activity_sign_up);
 
-        callLogin = findViewById(R.id.login_here);
+        resultReceiver = new AddressResultReceiver(new Handler());
 
+        callLogin = findViewById(R.id.login_here);
+        gpsbutton = findViewById(R.id.gps_button);
+        inner_gps = findViewById(R.id.inner_gps);
+        login_to_continue = findViewById(R.id.login_to_continue);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         callLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +94,136 @@ public class SignUp extends AppCompatActivity {
                 finish();
             }
         });
+
+        gpsbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    geoLocation();
+                } else {
+                    ActivityCompat.requestPermissions(
+                            SignUp.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+                }
+            }
+        });
     }
+
+    private void geoLocation() {
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+
+        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+
+            @Override
+            public void onComplete(@NonNull Task<Location> task) {
+                Location location = task.getResult();
+                if(location!=null){
+                    try{
+                        Geocoder geocoder = new Geocoder(SignUp.this, Locale.getDefault());
+
+                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                        inner_gps.setText(addresses.get(0).getAddressLine(0));
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getCurrentLocation();
+            } else {
+                Toast.makeText(SignUp.this, "Permission Denied", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void getCurrentLocation() {
+        final LocationRequest locationRequest = new LocationRequest();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(3000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        LocationServices.getFusedLocationProviderClient(SignUp.this)
+                .requestLocationUpdates(locationRequest, new LocationCallback(){
+                @Override
+                public void onLocationResult(LocationResult locationResult){
+                    super.onLocationResult(locationResult);
+                    LocationServices.getFusedLocationProviderClient(SignUp.this).removeLocationUpdates(this);
+                    if(locationResult!= null && locationResult.getLocations().size()>0){
+                        int latestLocationIndex = locationResult.getLocations().size()-1;
+                        double latitude = locationResult.getLocations().get(latestLocationIndex).getLatitude();
+                        double longitude = locationResult.getLocations().get(latestLocationIndex).getLongitude();
+                        Toast.makeText(SignUp.this,"LONG LAT",Toast.LENGTH_LONG).show();
+                        Location location = new Location("providerNA");
+                        location.setLatitude(latitude);
+                        location.setLongitude(longitude);
+                        fetchAddressFromLatLong(location);
+
+                    }
+
+            }
+        }, Looper.getMainLooper());
+
+    }
+    private void fetchAddressFromLatLong(Location location){
+        Toast.makeText(SignUp.this,"fetchAddressFromLatLong",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(SignUp.this, FetchAddressIntentService.class);
+        intent.putExtra(Constants.RECEIVER,resultReceiver);
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA,location);
+        startService(intent);
+    }
+    private class AddressResultReceiver extends ResultReceiver{
+
+
+        AddressResultReceiver(Handler handler) {
+
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+            super.onReceiveResult(resultCode, resultData);
+            Toast.makeText(SignUp.this,"ADDRESSRESULT",Toast.LENGTH_LONG).show();
+            if(resultCode == Constants.SUCCESS_RESULT){
+                Toast.makeText(SignUp.this,resultData.getString(Constants.RESULT_DATA_KEY),Toast.LENGTH_LONG).show();
+                login_to_continue.setText(resultData.getString(Constants.RESULT_DATA_KEY));
+                inner_gps.setText(resultData.getString(Constants.RESULT_DATA_KEY));
+            }
+            else{
+                Toast.makeText(SignUp.this,resultData.getString(Constants.RESULT_DATA_KEY),Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
+
 
     // Toast -> press back button again to exit
     @Override
@@ -202,4 +369,9 @@ public class SignUp extends AppCompatActivity {
 
     }
 
+
+
+
 }
+
+

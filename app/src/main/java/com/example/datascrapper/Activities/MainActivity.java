@@ -44,7 +44,7 @@ public class  MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); // To remove Status Bar
         setContentView(R.layout.activity_main);
 
-        
+
             //Adding Splash Animation or Get animation from the xml files
 //        topAnimation = AnimationUtils.loadAnimation(this,R.anim.top_animation);
 //        bottomAnimation = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);

@@ -34,13 +34,16 @@ public class MainActivity2 extends AppCompatActivity {
     public Bundle extras;
     public Bundle bundle;
     public String projectName;
+    FirebaseFirestore fStore;
+    FirebaseAuth mAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-
+        mAuth = FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
         mMainFrame = (FrameLayout) findViewById(R.id.main_frame);
         mMainNav  = (BottomNavigationView) findViewById(R.id.main_nav);
 
@@ -65,7 +68,37 @@ public class MainActivity2 extends AppCompatActivity {
 
                     case R.id.nav_task:
                         Log.e("Inside saved Task","Welcome brodas");
-                        setFragment(taskFragment);
+                        extras = getIntent().getExtras();
+                        projectName = extras.getString("projectName");
+                        DocumentReference doc = fStore.collection("users").document(mAuth.getCurrentUser().getEmail())
+                                                .collection("projects")
+                                                .document(projectName);
+
+                        doc.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                                if (e != null) {
+                                    Log.w("Bas u hi", "Listen failed.", e);
+                                    return;
+                                }
+
+                                if (snapshot != null && snapshot.exists()) {
+                                    String projName = (String)snapshot.getData().get("project_name");
+                                    String task_id = (String)snapshot.getData().get("task_id");
+                                    String projDesc = (String)snapshot.getData().get("project_desc");
+                                    bundle = new Bundle();
+                                    bundle.putString("projectName",projName);
+                                    bundle.putString("taskIdForRecyclerView",task_id);
+                                    bundle.putString("projectDescription",projDesc);
+                                    taskFragment.setArguments(bundle);
+                                    setFragment(taskFragment);
+                                } else {
+                                    Log.d("Bas u hi", "Current data: null");
+                                }
+
+                            }
+                        });
+
                         return true;
 
                     case R.id.nav_settings:

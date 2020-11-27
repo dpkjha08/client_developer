@@ -139,6 +139,48 @@
                         android:inputType="textPassword" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/get_location"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="283sp"
+                        android:layout_height="wrap_content"
+                        android:hint="User Location"
+                        android:textColorHint="#000"
+                        app:passwordToggleEnabled="true"
+                        app:boxStrokeColor="#9932CC"
+                        app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/inner_gps"
+                            android:inputType="text" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageButton
+                        android:id="@+id/gps_button"
+                        android:layout_width="55dp"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#9932CC"
+                        android:src="@drawable/gps"
+                        android:onClick="registerUser"
+                        android:text="SignUp"
+                        android:textColor="#fff"
+                        android:textSize="18dp"
+                        android:transitionName="go" />
+
+
+                </LinearLayout>
+
+
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

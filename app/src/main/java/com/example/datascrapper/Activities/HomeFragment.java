@@ -37,10 +37,10 @@ public class HomeFragment extends Fragment {
     private TextView name;
     private FirebaseFirestore firebaseFirestore;
     FirebaseAuth mAuth;
-    TextView project_Name,project_Description;
+    TextView project_Name,project_Description,team_count,task_completed,openm,resolvedm,reopenedm,inprogressm,closedm;
     private boolean doubleBackToExitPressedOnce = false;
     private String description = null;
-    private String pn;
+    private String pn,task_id;
     MaterialCardView teamStrength,taskCompleted;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -88,12 +88,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity) getContext()).getWindowManager()
-                .getDefaultDisplay()
-                .getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        final int width = displayMetrics.widthPixels;
+
 
 
 
@@ -103,11 +98,13 @@ public class HomeFragment extends Fragment {
         String projectName = getArguments().getString("projectName");
         project_Name  =  (TextView)view.findViewById(R.id.projectName);
         project_Description  =   (TextView)view.findViewById(R.id.projectDescription);
-//        teamStrength = (MaterialCardView)view.findViewById(R.id.teamStrength);
-//        teamStrength.set
-//        teamStrength.setWidth((width*30)/100);
-//        taskCompleted = (MaterialCardView)view.findViewById(R.id.taskCompleted);
-//        teamStrength.setWidth((width*60)/100);
+        team_count = (TextView) view.findViewById(R.id.team_count);
+        task_completed = (TextView) view.findViewById(R.id.task_completed);
+        openm = (TextView) view.findViewById(R.id.open);
+        closedm = (TextView) view.findViewById(R.id.closed);
+        resolvedm = (TextView) view.findViewById(R.id.resolved);
+        reopenedm = (TextView) view.findViewById(R.id.reopened);
+        inprogressm = (TextView) view.findViewById(R.id.in_progress);
 
         DocumentReference docRef  = firebaseFirestore.collection("users").document(String.valueOf(mAuth.getCurrentUser().getEmail())).
                                     collection("projects").document(projectName);
@@ -124,14 +121,79 @@ public class HomeFragment extends Fragment {
                 if (snapshot != null && snapshot.exists()) {
                     Log.e("Bas u hi", "Current data: " + snapshot.getData());
                     pn = (String) snapshot.getData().get("project_name");
-                    Log.e("Bas u hi", "Project Name: " + snapshot.getData().get("project_desc"));
                     description = (String) snapshot.getData().get("project_desc");
-                    Log.e("Bas u hi", "Project Desciption: " + snapshot.getData().get("members"));
+                    task_id = (String) snapshot.getData().get("task_id");
                     ArrayList<String> members = (ArrayList<String>) snapshot.getData().get("members");
-//                    System.out.println(members);
-
                     project_Name.setText(pn);
                     project_Description.setText(description);
+                    if((1 <= members.size())&&( members.size()<= 9)){
+                        team_count.setText("0"+String.valueOf(members.size()));
+                    }
+                    else{
+                        team_count.setText(String.valueOf(members.size()));
+                    }
+
+                    DocumentReference ref = firebaseFirestore.collection("tasks").document(task_id);
+                    ref.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                            if(error!=null){
+                                Log.e("HOME FRAGMENT","HUA KUCH GADBAD");
+                                return;
+                            }
+                            if(value != null && value.exists()){
+                                long closed = (long) value.getData().get("CLOSED");
+                                long open = (long) value.getData().get("OPEN");
+                                long inprogress = (long) value.getData().get("IN-PROGRESS");
+                                long resolved = (long) value.getData().get("RESOLVED");
+                                long reopened = (long) value.getData().get("REOPENED");
+                                long comptask = (long) value.getData().get("total_task");
+                                if((0 <= comptask)&&( comptask <= 9)){
+                                    task_completed.setText("0"+String.valueOf(comptask));
+                                }
+                                else{
+                                    task_completed.setText(String.valueOf(comptask));
+                                }
+
+                                if((0 <= closed)&&( closed <= 9)){
+                                    closedm.setText("   CLOSED                                        0"+String.valueOf(closed));
+                                }
+                                else{
+                                    closedm.setText("   CLOSED                                         "+String.valueOf(closed));
+                                }
+
+                                if((0 <= open)&&( open <= 9)){
+                                    openm.setText("   OPEN                                            0"+String.valueOf(open));
+                                }
+                                else{
+                                    openm.setText("   OPEN                                            "+String.valueOf(open));
+                                }
+                                if((0 <= inprogress)&&( inprogress <= 9)){
+                                    inprogressm.setText("   IN-PROGRESS                            0"+String.valueOf(inprogress));
+                                }
+                                else{
+                                    inprogressm.setText("   IN-PROGRESS                            s"+String.valueOf(inprogress));
+                                }
+                                if((0 <= resolved)&&( resolved <= 9)){
+                                    resolvedm.setText("   RESOLVED                                   0"+String.valueOf(resolved));
+                                }
+                                else{
+                                    resolvedm.setText("   RESOLVED                                    "+String.valueOf(resolved));
+                                }
+                                if((0 <= reopened)&&( reopened <= 9)){
+                                    reopenedm.setText("   REOPENED                                  0"+String.valueOf(reopened));
+                                }
+                                else{
+                                    reopenedm.setText("   REOPENED                                   "+String.valueOf(reopened));
+                                }
+
+
+
+
+                            }
+                        }
+                    });
+
                 } else {
                     Log.d("Bas u hi", "Current data: null");
                 }
@@ -143,7 +205,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(),Login.class);
+                Intent intent = new Intent(getContext(),Login.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 getActivity().finish();

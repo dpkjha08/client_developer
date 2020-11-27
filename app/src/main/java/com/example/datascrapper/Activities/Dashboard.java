@@ -14,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class Dashboard extends AppCompatActivity {
     private FirestoreRecyclerAdapter<DashboardModel, DashboardHolder>adapter;
     private RecyclerView dashboard;
     private String username;
+    private ImageButton userProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +72,8 @@ public class Dashboard extends AppCompatActivity {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        String project = v.getTag().toString();
                         int pro = holder.getAdapterPosition();
                       Log.e("Position", String.valueOf(pro));
-//                      Toast.makeText(Dashboard.this, projectName.get(pro),Toast.LENGTH_SHORT).show();
-//                        Intent toProject = new Intent(Dashboard.this, ProjectDetails.class);
                         Intent toProject = new Intent(Dashboard.this, MainActivity2.class);
 
                         toProject.putExtra("projectName",projectName.get(pro));
@@ -81,8 +81,7 @@ public class Dashboard extends AppCompatActivity {
 //                        finish();
                     }
                 });
-////                int pr = holder.getAdapterPosition();
-//                Toast.makeText(Dashboard.this, pr, Toast.LENGTH_SHORT).show();
+
             }
 
             @NonNull
@@ -99,6 +98,14 @@ public class Dashboard extends AppCompatActivity {
             onStart();
         }
 
+//        userProfile = findViewById(R.id.userProfile);
+//        userProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(Dashboard.this, "Hogaa shayad", Toast.LENGTH_SHORT).show();
+//                logoutNow();
+//            }
+//        });
     }
 
     @Override
@@ -114,10 +121,13 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void logoutNow(View view){
-        FirebaseAuth.getInstance().signOut();
-        Intent intent = new Intent(Dashboard.this,Login.class);
+//        FirebaseAuth.getInstance().signOut();
+        Log.d("Error","Agaya Errror error");
+        Toast.makeText(Dashboard.this,"Kuch toh hai",Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(Dashboard.this,UserProfile.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
+        Toast.makeText(Dashboard.this,"Kuch toh hai 2",Toast.LENGTH_LONG).show();
         finish();
     }
 

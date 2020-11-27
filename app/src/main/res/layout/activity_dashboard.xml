@@ -32,10 +32,12 @@
             tools:layout_editor_absoluteY="2dp" />
 
         <ImageButton
+            android:id="@+id/userProfile"
             android:layout_width="25sp"
             android:layout_height="25dp"
             android:background="@drawable/profile_purple"
             android:onClick="logoutNow"
+            android:backgroundTint="@color/purple"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.958"
             app:layout_constraintStart_toStartOf="@+id/login_name"

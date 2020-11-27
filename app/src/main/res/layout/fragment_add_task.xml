@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activities.AddTaskFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="1dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/logoutImage"
+                android:layout_width="30dp"
+                android:layout_height="25dp"
+                android:background="@drawable/back_arrow"
+                app:layout_constraintStart_toStartOf="@+id/projectName"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="4dp" />
+
+
+            <TextView
+                android:id="@+id/projectName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fontFamily="sans-serif-black"
+                android:paddingLeft="0dp"
+                android:paddingTop="0dp"
+                android:text="Project Name"
+                android:textAlignment="center"
+                android:textColor="@color/purple"
+                android:textSize="20dp"
+                android:transitionName="name"
+                tools:layout_editor_absoluteX="-31dp"
+                tools:layout_editor_absoluteY="2dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#000" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/taskName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Task Name"
+            android:transitionName="email"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            app:boxStrokeColor="@color/purple"
+            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+            android:textColorHint="#000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/taskDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Task Description"
+            android:layout_margin="10sp"
+            app:counterMaxLength="250"
+            app:counterEnabled="true"
+            app:boxStrokeColor="@color/purple"
+            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+            android:textColorHint="#000"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength="250"
+                android:drawableRight="@drawable/profile_purple">
+            </com.google.android.material.textfield.TextInputEditText>
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15sp"
+            >
+
+            <TextView
+                android:id="@+id/dates"
+                android:layout_width="275dp"
+                android:layout_height="40dp"
+                android:gravity="start"
+                android:padding="10sp"
+                android:text="DD/MM/YYYY"
+                android:textColor="#000"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#000"
+                app:layout_constraintBottom_toBottomOf="@+id/dates"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+            <ImageButton
+                android:id="@+id/calendarIcon"
+                android:layout_width="48dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="4dp"
+                android:background="#00000000"
+                android:src="@drawable/calendar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/dates"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15sp"
+            >
+
+            <TextView
+                android:id="@+id/assignedTo"
+                android:layout_width="275dp"
+                android:layout_height="40dp"
+                android:gravity="start"
+                android:padding="5sp"
+                android:text = "Assign To"
+                android:textColor="#000"
+                android:textSize="18dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.047" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="#000"
+                app:layout_constraintBottom_toBottomOf="@+id/assignedTo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
+
+            <ImageButton
+                android:id="@+id/selectUser"
+                android:layout_width="48dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="4dp"
+                android:background="#00000000"
+                android:src="@drawable/down_arrow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/assignedTo"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <Button
+            android:id="@+id/task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="#9932CC"
+            android:text="Add Task"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:transitionName="go" />
+
+
+
+    </LinearLayout>
+
+</FrameLayout>

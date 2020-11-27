@@ -117,129 +117,255 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <RelativeLayout
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="1dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView3">
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:backgroundTint="#fff"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView3"
+                tools:layout_editor_absoluteX="-97dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/teamStrength"
+                    android:layout_width="157dp"
+                    android:layout_height="124dp"
+                    android:layout_marginVertical="10dp"
+                    android:minHeight="150sp"
+                    app:cardCornerRadius="10sp"
+                    app:cardElevation="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/taskCompleted"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.365">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10sp">
+
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-black"
+                            android:text="Team Strength"
+                            android:textColor="@color/purple"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:ignore="MissingConstraints"
+                            tools:layout_editor_absoluteY="6dp" />
+
+                        <TextView
+                            android:id="@+id/team_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:fontFamily="sans-serif-black"
+                            android:text="25"
+                            android:textColor="@color/purple"
+                            android:textSize="50sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/taskCompleted"
+                    android:layout_width="160dp"
+                    android:layout_height="124dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:minHeight="150sp"
+                    app:cardCornerRadius="10sp"
+                    app:cardElevation="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.369">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/purple"
+                        android:padding="10sp">
+
+                        <TextView
+
+                            android:id="@+id/textView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="sans-serif-black"
+                            android:text="Total Task"
+                            android:textColor="#fff"
+                            android:textSize="15sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:ignore="MissingConstraints"
+                            tools:layout_editor_absoluteY="6dp" />
+
+                        <TextView
+                            android:id="@+id/task_completed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="24dp"
+                            android:fontFamily="sans-serif-black"
+                            android:text="101"
+                            android:textColor="#fff"
+
+                            android:textSize="50sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/materialCardView23"
                     android:layout_width="match_parent"
-                    android:layout_height="145dp"
-                   >
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="10sp"
+                    android:layout_marginVertical="5sp"
+                    app:cardCornerRadius="10sp"
+                    app:cardElevation="5sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/teamStrength">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/teamStrength"
-                        android:layout_width="150dp"
-                        android:layout_height="124dp"
-                        android:layout_marginVertical="10dp"
-                        android:layout_marginLeft="8dp"
-                        android:minHeight="150sp"
-                        app:cardCornerRadius="10sp"
-                        app:cardElevation="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.01">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <TextView
+                            android:id="@+id/open"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:paddingVertical="10sp"
+                            android:textColor="@color/purple"
+                            android:text="   OPEN                                            03"
+                            android:fontFamily="sans-serif-black"
+                            android:textSize="20sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.097"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <View
+                            android:id="@+id/view2"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="10sp">
+                            android:layout_height="1px"
+                            android:background="#000"
+                            app:layout_constraintBottom_toTopOf="@+id/resolved"
+                            app:layout_constraintTop_toBottomOf="@+id/open"
+                            app:layout_constraintVertical_bias="0.0"
+                            tools:layout_editor_absoluteX="0dp" />
 
-                            <TextView
-                                android:id="@+id/textView"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-black"
-                                android:text="Team Strength"
-                                android:textSize="15sp"
-                                android:textColor="@color/purple"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                tools:ignore="MissingConstraints"
-                                tools:layout_editor_absoluteY="6dp" />
+                        <TextView
+                            android:id="@+id/in_progress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:paddingVertical="10sp"
+                            android:textColor="@color/purple"
+                            android:text="   IN-PROGRESS                            03"
+                            android:fontFamily="sans-serif-black"
+                            android:textSize="20sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.126"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/open" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="24dp"
-                                android:fontFamily="sans-serif-black"
-                                android:text="25"
-                                android:textColor="@color/purple"
-                                android:textSize="50sp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/textView" />
-
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/taskCompleted"
-                        android:layout_width="180dp"
-                        android:layout_height="124dp"
-                        android:layout_marginVertical="10dp"
-                        android:layout_marginRight="8dp"
-                        android:minHeight="150sp"
-                        app:cardCornerRadius="10sp"
-                        app:cardElevation="20sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.01">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <View
+                            android:id="@+id/view3"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:padding="10sp"
-                            android:background="@color/purple">
+                            android:layout_height="1px"
+                            android:background="#000"
+                            app:layout_constraintBottom_toTopOf="@+id/resolved"
+                            app:layout_constraintTop_toBottomOf="@+id/in_progress"
+                            app:layout_constraintVertical_bias="0.0"
+                            tools:layout_editor_absoluteX="0dp" />
 
-                            <TextView
+                        <TextView
+                            android:id="@+id/resolved"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="12dp"
+                            android:paddingVertical="10sp"
+                            android:fontFamily="sans-serif-black"
+                            android:textColor="@color/purple"
+                            android:text="   RESOLVED                                    03"
+                            android:textSize="20sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.112"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/in_progress" />
 
-                                android:id="@+id/textView2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-black"
-                                android:text="Task Completed"
-                                android:textSize="15sp"
-                                android:textColor="#fff"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                tools:ignore="MissingConstraints"
-                                tools:layout_editor_absoluteY="6dp" />
+                        <View
+                            android:id="@+id/view4"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="#000"
+                            app:layout_constraintBottom_toTopOf="@+id/reopened"
+                            app:layout_constraintTop_toBottomOf="@+id/resolved"
+                            app:layout_constraintVertical_bias="0.0"
+                            tools:layout_editor_absoluteX="0dp" />
 
-                            <TextView
-                                android:id="@+id/textView3"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="#fff"
-                                android:layout_marginTop="24dp"
-                                android:fontFamily="sans-serif-black"
-                                android:text="101"
+                        <TextView
+                            android:id="@+id/reopened"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:layout_marginTop="8dp"
+                            android:paddingVertical="10sp"
+                            android:fontFamily="sans-serif-black"
+                            android:textColor="@color/purple"
+                            android:text="   REOPENED                                   03"
+                            android:textSize="20sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.114"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/resolved" />
 
-                                android:textSize="50sp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="@+id/textView2" />
+                        <View
+                            android:id="@+id/view5"
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="#000"
+                            app:layout_constraintBottom_toTopOf="@+id/closed"
+                            app:layout_constraintTop_toBottomOf="@+id/reopened"
+                            app:layout_constraintVertical_bias="0.0"
+                            tools:layout_editor_absoluteX="0dp" />
+
+                        <TextView
+                            android:id="@+id/closed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="10dp"
+                            android:paddingVertical="10sp"
+                            android:fontFamily="sans-serif-black"
+                            android:textColor="@color/purple"
+                            android:text="   CLOSED                                         03"
+                            android:textSize="20sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.114"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/reopened" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
 
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    </com.google.android.material.card.MaterialCardView>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </RelativeLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

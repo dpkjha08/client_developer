@@ -57,6 +57,7 @@ public class AddProject extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
         userID = mAuth.getCurrentUser().getUid();
         email  = mAuth.getCurrentUser().getEmail();
+
         Log.e("userId","ID is : " + userID);
         Log.e("Email","ID is : " + email);
         Log.e("Project Name","ID is : " + projectName);
@@ -67,6 +68,12 @@ public class AddProject extends AppCompatActivity {
         project.put("project_name",projectName);
         project.put("project_desc",projectDesc);
         project.put("created_at", FieldValue.serverTimestamp());
+        final String task_id = projectName+projectDesc+mAuth.getCurrentUser().getEmail();
+        final String name =  mAuth.getCurrentUser().getDisplayName();
+        project.put("task_id",task_id);
+        project.put("task_completed",0);
+        project.put("task_incomplete",0);
+        project.put("total_task",0);
         members.add(email);
         project.put("members",members);
         documentReference.set(project)
@@ -79,18 +86,43 @@ public class AddProject extends AppCompatActivity {
                         Map<String,Object> project_user = new HashMap<>();
                         project_user.put("full name","Deepak Jha");
                         project_user.put("email",email);
-                        project_user.put("tasks completed",0);
-                        project_user.put("tasks pending",0);
-                        project_user.put("total tasks",0);
+                        project_user.put("tasks_completed",0);
+                        project_user.put("tasks_pending",0);
+                        project_user.put("total_tasks",0);
                         doc.set(project_user)
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
 
-                                        Intent intent = new Intent(AddProject.this, Dashboard.class);
-                                        startActivity(intent);
-                                        finish();
-                                        Log.e("Project", "Added Successful");
+
+                                        DocumentReference docfile = fStore.collection("tasks").document(String.valueOf(task_id));
+                                        Map<String,Object> task_comp = new HashMap<>();
+                                        task_comp.put("total_task",0);
+                                        task_comp.put("pending_task",0);
+                                        task_comp.put("complete_task",0);
+                                        task_comp.put("unassigned",0);
+                                        task_comp.put("OPEN",0);
+                                        task_comp.put("RESOLVED",0);
+                                        task_comp.put("REOPENED",0);
+                                        task_comp.put("CLOSED",0);
+                                        task_comp.put("IN-PROGRESS",0);
+                                        docfile.set(task_comp).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(AddProject.this,"Project Added Successfully",Toast.LENGTH_SHORT).show();
+                                                Intent intent = new Intent(AddProject.this, Dashboard.class);
+                                                startActivity(intent);
+                                                finish();
+                                                Log.e("Project", "Added Successful");
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(AddProject.this,"Something went wrong while adding user",Toast.LENGTH_SHORT).show();
+                                                Log.e("Project inner loop", "Adding Failed");
+                                            }
+                                        });
+
                                     }
 
                                 })
