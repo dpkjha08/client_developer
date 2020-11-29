@@ -57,110 +57,98 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="198dp"
-            android:layout_height="166dp"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:foregroundGravity="center"
             android:src="@drawable/client2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.004" />
+            app:layout_constraintVertical_bias="0.0" />
 
-        <Button
-            android:id="@+id/cameraBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="@color/purple"
-            android:text="Camera"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.415"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/galleryBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="47dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="56dp"
-            android:background="@color/purple"
-            android:text="Gallery"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView2"
-            app:layout_constraintTop_toBottomOf="@+id/cameraBtn" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/name"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <View
+            android:id="@+id/view6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name"
-            android:textColorHint="#000"
-            android:transitionName="email"
-
-            app:boxStrokeColor="#9932CC"
-            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+            android:layout_height="1px"
+            android:background="#000"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            app:layout_constraintVertical_bias="0.038">
+            app:layout_constraintVertical_bias="0.037"
+            tools:layout_editor_absoluteX="16dp" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
 
-                />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_id"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:focusable="false"
-            android:hint="Email"
-            android:textColorHint="#000"
-            android:transitionName="email"
-            app:boxStrokeColor="#9932CC"
-            app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+            android:layout_marginTop="20dp"
+            android:text="Name"
+            android:textColor="#000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.048"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text=""
+            android:textColor="@color/purple"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            app:layout_constraintVertical_bias="0.041" />
+
+        <View
+            android:id="@+id/view7"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/name"
-            app:layout_constraintVertical_bias="0.022"
-            tools:layout_editor_absoluteX="10dp">
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress" />
+            app:layout_constraintVertical_bias="0.037"
+            tools:layout_editor_absoluteX="16dp" />
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/update"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/purple"
-            android:text="Update"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            android:transitionName="update"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"
+            android:text="Email Id"
+            android:textColor="#000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.048"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view7" />
+
+        <TextView
+            android:id="@+id/email_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text=""
+            android:textColor="@color/purple"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintVertical_bias="0.041" />
+
+        <View
+            android:id="@+id/view8"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#000"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_id"
-            app:layout_constraintVertical_bias="0.08" />
+            app:layout_constraintVertical_bias="0.037"
+            tools:layout_editor_absoluteX="16dp" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

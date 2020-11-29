@@ -123,11 +123,8 @@ public class Dashboard extends AppCompatActivity {
     public void logoutNow(View view){
 //        FirebaseAuth.getInstance().signOut();
         Log.d("Error","Agaya Errror error");
-        Toast.makeText(Dashboard.this,"Kuch toh hai",Toast.LENGTH_LONG).show();
         Intent intent = new Intent(Dashboard.this,UserProfile.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        Toast.makeText(Dashboard.this,"Kuch toh hai 2",Toast.LENGTH_LONG).show();
         finish();
     }
 
