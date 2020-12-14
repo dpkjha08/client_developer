@@ -30,6 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.datascrapper.Auth.Login;
 import com.example.datascrapper.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -143,7 +144,6 @@ public class UserProfile extends AppCompatActivity {
     private void SelectImage(){
 
         final CharSequence[] items={"Camera","Gallery", "Cancel"};
-
         AlertDialog.Builder builder = new AlertDialog.Builder(UserProfile .this);
         builder.setTitle("Add Image");
 
@@ -169,6 +169,7 @@ public class UserProfile extends AppCompatActivity {
             }
         });
         builder.show();
+
     }
 
 
@@ -177,6 +178,11 @@ public class UserProfile extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode,data);
 
         if(resultCode== Activity.RESULT_OK){
+            progress=new ProgressDialog(this);
+            progress.setMessage("Uploading Image");
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setProgress(0);
+            progress.show();
 
             if(requestCode==REQUEST_CAMERA){
                 Bundle bundle = data.getExtras();
@@ -201,16 +207,19 @@ public class UserProfile extends AppCompatActivity {
                 }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                        //Uri downloadUrl = taskSnapshot.getBytesTransferred();
-                        // Do what you want
-                        Toast.makeText(UserProfile.this,"Upload Successfully",Toast.LENGTH_LONG).show();
+                        progress.dismiss();
+                        Toast.makeText(UserProfile.this,"Uploaded Successfully",Toast.LENGTH_LONG).show();
+
 
                     }
                 });
 
             }else if(requestCode==SELECT_FILE){
-
+                progress=new ProgressDialog(this);
+                progress.setMessage("Uploading Image");
+                progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progress.setProgress(0);
+                progress.show();
                 Uri selectedImageUri = data.getData();
                 ivImage.setImageURI(selectedImageUri);
                 auth = FirebaseAuth.getInstance();
@@ -221,6 +230,7 @@ public class UserProfile extends AppCompatActivity {
                 storageReference.putFile(selectedImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        progress.dismiss();
                         Toast.makeText(UserProfile.this,"Upload Successfully",Toast.LENGTH_LONG);
                     }
                 });
@@ -236,13 +246,14 @@ public class UserProfile extends AppCompatActivity {
             super.onBackPressed();
             return;
         }
-
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 doubleBackToExitPressedOnce = false;
+                Intent intent = new Intent(UserProfile.this, Dashboard.class);
+                startActivity(intent);
+                finish();
             }
         }, 2000);
     }

@@ -1,5 +1,6 @@
 package com.example.datascrapper.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -90,6 +91,7 @@ public class SettingsFragment extends Fragment {
     private FirestoreRecyclerOptions<SettingsFragmentModel> options;
     SettingsFragmentHolder adapter;
     /////////////////////
+    private ProgressDialog progress;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -139,6 +141,11 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        progress=new ProgressDialog(getContext());
+        progress.setMessage("Loading User Fragment...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setProgress(0);
+        progress.show();
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         projectName = getArguments().getString("projectName");
@@ -158,6 +165,7 @@ public class SettingsFragment extends Fragment {
         adapter = new SettingsFragmentHolder(options);
         showUsers.setAdapter(adapter);
         view = addUserFirst(view);
+        progress.dismiss();
         return view;
     }
     @Override

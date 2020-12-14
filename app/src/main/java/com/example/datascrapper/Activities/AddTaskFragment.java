@@ -2,6 +2,7 @@ package com.example.datascrapper.Activities;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 import com.example.datascrapper.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -62,6 +65,7 @@ public class AddTaskFragment extends Fragment  {
 
     TextInputLayout taskName,taskDesc;
     TextView date,assignedTo;
+    TextInputEditText task_name_1,task_name_2;
     ImageButton calendar,selectUser;
     Button task;
     private DatePickerDialog.OnDateSetListener onDateSetListener;
@@ -81,6 +85,7 @@ public class AddTaskFragment extends Fragment  {
     public String taskIdInUser;
     ArrayList<String>membersInUsers ;
     Date createdAtInUser;
+    private ProgressDialog progress;
 
     ////////////////////////////////////////////////////
 
@@ -122,6 +127,9 @@ public class AddTaskFragment extends Fragment  {
         View view  =  inflater.inflate(R.layout.fragment_add_task, container, false);
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
+
+        task_name_1 = (TextInputEditText)view.findViewById(R.id.task_name_1);
+        task_name_2 = (TextInputEditText)view.findViewById(R.id.task_name_2);
 
         projectName = getArguments().getString("projectName");
         projectDescription = getArguments().getString("projectDescription");
@@ -229,6 +237,8 @@ public class AddTaskFragment extends Fragment  {
     }
 
     private void addTaskFinal(){
+
+
       task_Name = taskName.getEditText().getText().toString();
       task_Description = taskDesc.getEditText().getText().toString();
       fixedDate = date.getText().toString();
@@ -238,6 +248,11 @@ public class AddTaskFragment extends Fragment  {
           Toast.makeText(getActivity(),"All Fields are required",Toast.LENGTH_LONG).show();
       }
       else{
+          progress=new ProgressDialog(getContext());
+          progress.setMessage("Adding Task.\n Please Wait...x");
+          progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+          progress.setProgress(0);
+          progress.show();
           addTaskToFirebase();
       }
       return;
@@ -283,6 +298,7 @@ public class AddTaskFragment extends Fragment  {
     }
 
     private void updateNumberOfTasks() {
+
         mAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
         fStore.collection("tasks").document(task_id).update("pending_task",FieldValue.increment(1));
@@ -317,6 +333,19 @@ public class AddTaskFragment extends Fragment  {
                                 .collection("project_user")
                                 .document(memberIdFinalForDb).update("tasks_pending",FieldValue.increment(1));
                     }
+                    progress.dismiss();
+
+                    taskName.getEditText().setText("");
+                    taskName.clearFocus();
+                    taskDesc.getEditText().setText("");
+                    taskDesc.clearFocus();
+                    date.setText("DD/MM/YY");
+                    assignedTo.setText("Assign To");
+
+                    Toast.makeText(getActivity(), "Task Added Successfully", Toast.LENGTH_SHORT).show();
+
+
+
                     Log.e("MEMBERS", String.valueOf(membersInUsers));
                     Log.e("MEMBER  2",memberIdFinalForDb);
                 } else {

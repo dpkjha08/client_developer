@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.example.datascrapper.Activities.Constants;
 import com.example.datascrapper.Activities.Dashboard;
+import com.example.datascrapper.Activities.DatabaseHelper;
 import com.example.datascrapper.Activities.FetchAddressIntentService;
 import com.example.datascrapper.Activities.MainActivity;
 import com.example.datascrapper.R;
@@ -60,7 +61,7 @@ public class SignUp extends AppCompatActivity {
     ImageButton gpsbutton;
     TextInputLayout full_name, email, password, confirm_password, get_location;
     TextInputEditText inner_gps;
-    String fullName, emailAddress, finalPassword, confrimPassword;
+    String fullName, emailAddress, finalPassword, confrimPassword,getLocation;
     TextView login_to_continue;
     private boolean doubleBackToExitPressedOnce = false;
     private FirebaseAuth mAuth;
@@ -70,16 +71,17 @@ public class SignUp extends AppCompatActivity {
     private static final int REQUEST_CODE_LOCATION_PERMISSION = 1;
     private ResultReceiver resultReceiver;
     FusedLocationProviderClient fusedLocationProviderClient;
-
+    DatabaseHelper databaseHelper;
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);//  set status text dark
-
         setContentView(R.layout.activity_sign_up);
 
-        resultReceiver = new AddressResultReceiver(new Handler());
+//        resultReceiver = new AddressResultReceiver(new Handler());
+        Log.e("DATABASE","inSignUpActivity");
+        databaseHelper =  new DatabaseHelper(this);
 
         callLogin = findViewById(R.id.login_here);
         gpsbutton = findViewById(R.id.gps_button);
@@ -141,88 +143,6 @@ public class SignUp extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getCurrentLocation();
-            } else {
-                Toast.makeText(SignUp.this, "Permission Denied", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-    private void getCurrentLocation() {
-        final LocationRequest locationRequest = new LocationRequest();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(3000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        LocationServices.getFusedLocationProviderClient(SignUp.this)
-                .requestLocationUpdates(locationRequest, new LocationCallback(){
-                @Override
-                public void onLocationResult(LocationResult locationResult){
-                    super.onLocationResult(locationResult);
-                    LocationServices.getFusedLocationProviderClient(SignUp.this).removeLocationUpdates(this);
-                    if(locationResult!= null && locationResult.getLocations().size()>0){
-                        int latestLocationIndex = locationResult.getLocations().size()-1;
-                        double latitude = locationResult.getLocations().get(latestLocationIndex).getLatitude();
-                        double longitude = locationResult.getLocations().get(latestLocationIndex).getLongitude();
-                        Toast.makeText(SignUp.this,"LONG LAT",Toast.LENGTH_LONG).show();
-                        Location location = new Location("providerNA");
-                        location.setLatitude(latitude);
-                        location.setLongitude(longitude);
-                        fetchAddressFromLatLong(location);
-
-                    }
-
-            }
-        }, Looper.getMainLooper());
-
-    }
-    private void fetchAddressFromLatLong(Location location){
-        Toast.makeText(SignUp.this,"fetchAddressFromLatLong",Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(SignUp.this, FetchAddressIntentService.class);
-        intent.putExtra(Constants.RECEIVER,resultReceiver);
-        intent.putExtra(Constants.LOCATION_DATA_EXTRA,location);
-        startService(intent);
-    }
-    private class AddressResultReceiver extends ResultReceiver{
-
-
-        AddressResultReceiver(Handler handler) {
-
-            super(handler);
-        }
-
-        @Override
-        protected void onReceiveResult(int resultCode, Bundle resultData) {
-            super.onReceiveResult(resultCode, resultData);
-            Toast.makeText(SignUp.this,"ADDRESSRESULT",Toast.LENGTH_LONG).show();
-            if(resultCode == Constants.SUCCESS_RESULT){
-                Toast.makeText(SignUp.this,resultData.getString(Constants.RESULT_DATA_KEY),Toast.LENGTH_LONG).show();
-                login_to_continue.setText(resultData.getString(Constants.RESULT_DATA_KEY));
-                inner_gps.setText(resultData.getString(Constants.RESULT_DATA_KEY));
-            }
-            else{
-                Toast.makeText(SignUp.this,resultData.getString(Constants.RESULT_DATA_KEY),Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-
-
 
 
     // Toast -> press back button again to exit
@@ -314,6 +234,8 @@ public class SignUp extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         confirm_password = findViewById(R.id.confirm_password);
+        get_location = findViewById(R.id.get_location);
+
 
         mAuth  = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
@@ -322,6 +244,7 @@ public class SignUp extends AppCompatActivity {
         emailAddress = email.getEditText().getText().toString().trim();
         finalPassword = password.getEditText().getText().toString().trim();
         confrimPassword = confirm_password.getEditText().getText().toString().trim();
+        getLocation = get_location.getEditText().getText().toString().trim();
 
         if(!validateName() | !validatePassword()  | !validateEmail() )
         {
@@ -346,8 +269,17 @@ public class SignUp extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.d("TAG","USER REGISTERED SUCCESSFULLY");
+
                             }
                         });
+
+                        boolean isInserted = databaseHelper.insertData(emailAddress,fullName,getLocation);
+                        if(isInserted == true)
+                            Toast.makeText(SignUp.this,"Data Inserted",Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(SignUp.this,"Data not Inserted",Toast.LENGTH_LONG).show();
+
+
                         Intent intent = new Intent(SignUp.this, Dashboard.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
